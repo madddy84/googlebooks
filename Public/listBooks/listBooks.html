@@ -1,0 +1,78 @@
+<div ng-controller="listBooksController as lbc">
+    <div class="row">
+        <div class="col-lg-6">
+
+        </div><!-- /.col-lg-6 -->
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." ng-model="txtSearch">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="lbc.onSearch(txtSearch)">Search</button>
+                </span>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+    <br />
+    <div class="row">
+        <div class="col-sm-5">
+            TotalRecords : {{lbc.totalRecordsDisplayed}}
+        </div>
+        <div class="col-sm-5">
+            ResponseTime  : {{lbc.responseTime}} in Ms
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-default" data-ng-click="lbc.prevPage()">Back</button>
+            <button class="btn btn-default" data-ng-click="lbc.nextPage()">Next</button>
+        </div>
+    </div>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Authors</th>
+                <th>
+                    Details
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat-start="book in lbc.books">
+                <td><img src="{{book.volumeInfo.imageLinks.smallThumbnail}}" style="height: 70px;" /></td>
+                <td>{{book.volumeInfo.title}}</td>
+                <td>{{book.volumeInfo.authors.join()}}</td>
+                <td style="cursor: pointer" ng-click="book.isDetails =!book.isDetails">==>></td>
+            </tr>
+            <tr data-ng-repeat-end ng-if="book.isDetails">
+                <td colspan="4" style="border-top-width: 0">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <img src="{{book.volumeInfo.imageLinks.thumbnail}}" />
+                        </div>
+                        <div class="col-lg-9">
+
+                            <div>
+                                <b>Title:</b>{{book.volumeInfo.title}}
+                            </div>
+                            <div>
+                                <b>Subtitle:</b>{{book.volumeInfo.subtitle}}
+                            </div>
+                            <div>
+                                <b>Authors:</b>{{book.volumeInfo.authors.join()}}
+                            </div>
+                            <div>
+                                <b>IsOnEpub:</b>{{book.accessInfo.epub.isAvailable}}
+                            </div>
+                            <div>
+                                <b>IsOnPDF:</b>{{book.accessInfo.pdf.isAvailable}}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
